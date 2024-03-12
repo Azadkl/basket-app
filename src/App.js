@@ -5,10 +5,13 @@ import {
   SimpleGrid,
   List,
   ThemeIcon,
-  rem,
   ListItem,
   Input,
   CloseButton,
+  Button,
+  Drawer,
+  Group,
+  Indicator,
 } from "@mantine/core";
 import { IconCircleCheck } from "@tabler/icons-react";
 import Card from "./components/Card";
@@ -48,6 +51,7 @@ const storeItems = [
 ];
 
 function App() {
+  let [opened, close] = useState(false);
   let [basketItems, setBasketItems] = useState([]);
   let [searchValue, setSearchValue] = useState("");
   let filteredItems = storeItems.filter(
@@ -55,21 +59,26 @@ function App() {
   );
   return (
     <Container>
-      <Input.Wrapper label="Arama" className="List">
-        <Input
-        value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          rightSectionPointerEvents="all"
-          mt="md"
-          rightSection={
-            <CloseButton
-              aria-label="Clear input"
-              onClick={() => setSearchValue("")}
-              style={{ display: searchValue ? undefined : "none" }}
-            />
-          }
-        />
-      </Input.Wrapper>
+      <Group align="end">
+        <Input.Wrapper label="Arama">
+          <Input
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            rightSectionPointerEvents="all"
+            mt="md"
+            rightSection={
+              <CloseButton
+                aria-label="Clear input"
+                onClick={() => setSearchValue("")}
+                style={{ display: searchValue ? undefined : "none" }}
+              />
+            }
+          />
+        </Input.Wrapper>
+        <Indicator color="red" label={basketItems.length} size={22}>
+          <Button onClick={() => close(true)}>Sepet</Button>
+        </Indicator>
+      </Group>
       <SimpleGrid cols={3} className="Store">
         {filteredItems.map(({ name, src }) => {
           return (
@@ -82,22 +91,28 @@ function App() {
           );
         })}
       </SimpleGrid>
-
-      <List
-        className="List"
-        spacing="xs"
-        size="sm"
-        center
-        icon={
-          <ThemeIcon color="teal" size={24} radius="xl">
-            <IconCircleCheck size={16} />
-          </ThemeIcon>
-        }
+      <Drawer
+        opened={opened}
+        onClose={close}
+        title="Sepetim"
+        overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
       >
-        {basketItems.map(({ name }, index) => (
-          <ListItem key={index}>{name}</ListItem>
-        ))}
-      </List>
+        <List
+          className="List"
+          spacing="xs"
+          size="sm"
+          center
+          icon={
+            <ThemeIcon color="teal" size={24} radius="xl">
+              <IconCircleCheck size={16} />
+            </ThemeIcon>
+          }
+        >
+          {basketItems.map(({ name }, index) => (
+            <ListItem key={index}>{name}</ListItem>
+          ))}
+        </List>
+      </Drawer>
     </Container>
   );
 }
