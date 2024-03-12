@@ -1,4 +1,4 @@
-import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import { Card, Image, Text, Button, Group } from "@mantine/core";
 
 const CardComponent = ({ name, onAdd, src }) => {
   return (
@@ -13,7 +13,7 @@ const CardComponent = ({ name, onAdd, src }) => {
 
       <Group justify="space-between" mt="md" mb="xs">
         <Text fw={500}>{name}</Text>
-        <Badge color="pink">On Sale</Badge>
+        {/* {<Badge color="pink">On Sale</Badge>} */}
       </Group>
 
       <Text size="sm" c="dimmed">

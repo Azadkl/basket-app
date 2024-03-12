@@ -8,6 +8,7 @@ import {
   rem,
   ListItem,
   Input,
+  CloseButton,
 } from "@mantine/core";
 import { IconCircleCheck } from "@tabler/icons-react";
 import Card from "./components/Card";
@@ -16,45 +17,61 @@ import { useState } from "react";
 const storeItems = [
   {
     name: "Akıllı Saat",
-    src:"akillisaat",
+    src: "akillisaat",
     price: 30,
   },
   {
     name: "Spor Ayakkabı",
-    src:"ayakkabi",
+    src: "ayakkabi",
     price: 20,
   },
   {
     name: "Fotoğraf Makinası",
-    src:"kamera",
+    src: "kamera",
     price: 10,
   },
   {
     name: "Kulaklık",
-    src:"kulaklik",
+    src: "kulaklik",
     price: 20,
   },
   {
     name: "Oyuncak Araba",
-    src:"oyuncakaraba",
+    src: "oyuncakaraba",
     price: 20,
   },
   {
     name: "Kol Saati",
-    src:"saat",
+    src: "saat",
     price: 20,
   },
-
 ];
 
 function App() {
   let [basketItems, setBasketItems] = useState([]);
-  let [searchValue,setSearchValue]=useState("");
-  let filteredItems = basketItems.filter((item)=> item.name.toLowerCase().indexOf(searchValue.toLowerCase())>=0);
+  let [searchValue, setSearchValue] = useState("");
+  let filteredItems = storeItems.filter(
+    (item) => item.name.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0
+  );
   return (
     <Container>
+      <Input.Wrapper label="Arama" className="List">
+        <Input
+        value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          rightSectionPointerEvents="all"
+          mt="md"
+          rightSection={
+            <CloseButton
+              aria-label="Clear input"
+              onClick={() => setSearchValue("")}
+              style={{ display: searchValue ? undefined : "none" }}
+            />
+          }
+        />
+      </Input.Wrapper>
       <SimpleGrid cols={3} className="Store">
-        {storeItems.map(({ name ,src}) => {
+        {filteredItems.map(({ name, src }) => {
           return (
             <Card
               key={name}
@@ -65,9 +82,7 @@ function App() {
           );
         })}
       </SimpleGrid>
-      <Input.Wrapper label="Arama" className="List">
-      <Input onChange ={(e)=>setSearchValue(e.target.value)} />
-    </Input.Wrapper>
+
       <List
         className="List"
         spacing="xs"
@@ -79,7 +94,7 @@ function App() {
           </ThemeIcon>
         }
       >
-        {filteredItems.map(({ name },index) => (
+        {basketItems.map(({ name }, index) => (
           <ListItem key={index}>{name}</ListItem>
         ))}
       </List>
