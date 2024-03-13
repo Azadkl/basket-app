@@ -92,8 +92,8 @@ function App() {
             }
           />
         </Input.Wrapper>
-        <Indicator color="red" label={basketItems.length} size={22}>
-          <Button onClick={() => close(true)}>
+        <Indicator color="yellow" label={basketItems.length} size={22}>
+          <Button color="dark" onClick={() => close(true)}>
             {<IconShoppingCart size={22} />}
           </Button>
         </Indicator>
@@ -122,7 +122,7 @@ function App() {
           size="sm"
           center
           icon={
-            <ThemeIcon color="teal" size={24} radius="xl">
+            <ThemeIcon color="dark" size={24} radius="xl">
               <IconCircleCheck size={16} />
             </ThemeIcon>
           }
@@ -130,7 +130,7 @@ function App() {
           {basketItems.map(({ name, count }, index) => (
             <ListItem key={index}><Group>
               {name}
-              <Badge>{count}</Badge>
+              <Badge color="dark">{count}</Badge>
               </Group>
             </ListItem>
           ))}

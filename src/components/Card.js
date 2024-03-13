@@ -21,7 +21,7 @@ const CardComponent = ({ name, onAdd, src }) => {
         with tours and activities on and around the fjords of Norway
       </Text>
 
-      <Button color="blue" fullWidth mt="md" radius="md" onClick={onAdd}>
+      <Button color="dark" fullWidth mt="md" radius="md" onClick={onAdd}>
         Ekle
       </Button>
     </Card>
