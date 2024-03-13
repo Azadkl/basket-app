@@ -13,7 +13,7 @@ import {
   Group,
   Indicator,
 } from "@mantine/core";
-import { IconCircleCheck } from "@tabler/icons-react";
+import { IconCircleCheck, IconShoppingCart } from "@tabler/icons-react";
 import Card from "./components/Card";
 import { useState } from "react";
 
@@ -76,7 +76,9 @@ function App() {
           />
         </Input.Wrapper>
         <Indicator color="red" label={basketItems.length} size={22}>
-          <Button onClick={() => close(true)}>Sepet</Button>
+          <Button onClick={() => close(true)}>
+            {<IconShoppingCart size={22} />}
+          </Button>
         </Indicator>
       </Group>
       <SimpleGrid cols={3} className="Store">
